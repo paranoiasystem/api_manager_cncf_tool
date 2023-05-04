@@ -1,7 +1,21 @@
 # api_manager_cncf_tool
 
-try 
+This is a simple example of how to use the CNCF tools to build a simple API manager.
+
+CNCF graduated project used:
+- [Envoy](https://www.envoyproxy.io/)
+- [OPA](https://www.openpolicyagent.org/)
+- [Prometheus](https://prometheus.io/)
+
+plus [Grafana](https://grafana.com/) for seeing the metrics.
+
+
+![Grafana Screen](https://github.com/paranoiasystem/api_manager_cncf_tool/blob/main/grafana_screen.png?raw=true)
+
+
+## How to run
 
 ```bash
+docker compose up -d
 curl --location 'http://localhost:10000/api/rnk/character/1' --header 'x-auth-token: peppe'
 ```
