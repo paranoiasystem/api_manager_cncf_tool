@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  envoy:
+    image: envoyproxy/envoy:dev-9b7144374cca05b029fdcac816bf81eb87e6f54e
+    container_name: envoy
+    ports:
+      - "10000:10000"
+      - "9901:9901"
+    volumes:
+      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
+    command: ["envoy", "-c", "/etc/envoy/envoy.yaml", "--service-cluster", "envoy", "--log-level", "debug"]
+
+  opa:
+    image: openpolicyagent/opa:0.52.0-envoy
+    container_name: opa
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./opa/policy.rego:/policy.rego
+    command: ["run", "--server", "--log-level=debug", "--set=plugins.envoy_ext_authz_grpc.addr=:9191", "--set=decision_logs.console=true", "/policy.rego"]
+
+  prometheus:
+    image: prom/prometheus:v2.28.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+
+  grafana:
+    image: grafana/grafana:8.1.5
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secret
