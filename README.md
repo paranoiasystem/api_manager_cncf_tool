@@ -9,6 +9,7 @@ CNCF graduated project used:
 
 plus [Grafana](https://grafana.com/) for seeing the metrics.
 
+Find out what graduated project means [here](https://www.cncf.io/projects/#:~:text=Project%20maturity%20levels).
 
 ![Grafana Screen](https://github.com/paranoiasystem/api_manager_cncf_tool/blob/main/grafana_screen.png?raw=true)
 
