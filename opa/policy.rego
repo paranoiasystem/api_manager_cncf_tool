@@ -3,6 +3,8 @@ import future.keywords.if
 
 import input.attributes.request.http as http_request
 
+# https://www.envoyproxy.io/docs/envoy/v1.26.1/start/sandboxes/ext_authz.html
+
 default allow := false
 
 allow if is_token_valid
